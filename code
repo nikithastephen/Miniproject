@@ -1,0 +1,28 @@
+import numpy as np
+import pandas as pd
+df = pd.read_csv('spam.csv', encoding='latin1')
+df.sample(5)
+ df.shape
+df.info()
+
+df.drop(columns=['Unnamed: 2','Unnamed: 3','Unnamed: 4'],inplace=True)
+df.sample(5)
+df.rename(columns={'v1':'target','v2':'text'},inplace=True)
+df.sample(5)
+from sklearn.preprocessing import LabelEncoder
+encoder = LabelEncoder()
+df['target'] = encoder.fit_transform(df['target'])
+
+df.head()
+df.isnull().sum()
+
+df.duplicated().sum()
+df = df.drop_duplicates(keep='first')
+df.duplicated().sum()
+df.shape
+df.head()
+df['target'].value_counts()
+pip install matplotlib
+import matplotlib.pyplot as plt
+plt.pie(df['target'].value_counts(), labels=['ham','spam'],autopct="%0.2f")
+plt.show()
